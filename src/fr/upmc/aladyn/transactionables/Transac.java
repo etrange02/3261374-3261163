@@ -39,29 +39,31 @@ public class Transac {
 	
 	public static void main(String[] args) {
 		TrTest1 t1 = new TrTest1();
+		Copie c = new Copie(t1);
+		c.restoreInstance();
 		
-		Class<?> c = t1.getClass();
-		Method m = null;
-		
-		Field[] tabF = c.getDeclaredFields();
-		
-		for (int i = 0; i < tabF.length; ++i) {
-			System.out.println("tabF[" + i + "]: name-" + tabF[i].getName() + " type-" + tabF[i].getType());
-			try {
-				m = c.getMethod("set" + tabF[i].getName().toUpperCase(), tabF[i].getType());
-				m.invoke(t1, 3);
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
+//		Class<?> c = t1.getClass();
+//		Method m = null;
+//		
+//		Field[] tabF = c.getDeclaredFields();
+//		
+//		for (int i = 0; i < tabF.length; ++i) {
+//			System.out.println("tabF[" + i + "]: name-" + tabF[i].getName() + " type-" + tabF[i].getType());
+//			try {
+//				m = c.getMethod("set" + tabF[i].getName().toUpperCase(), tabF[i].getType());
+//				m.invoke(t1, 3);
+//			} catch (NoSuchMethodException e) {
+//				e.printStackTrace();
+//			} catch (SecurityException e) {
+//				e.printStackTrace();
+//			} catch (IllegalAccessException e) {
+//				e.printStackTrace();
+//			} catch (IllegalArgumentException e) {
+//				e.printStackTrace();
+//			} catch (InvocationTargetException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		/*try {
 			tabF[0].setInt(c, 2);
@@ -73,7 +75,11 @@ public class Transac {
 		System.out.println("x="+t1.getX());
 	}
 	
-	public void save(String nomClasse, Object o) {
+	/**
+	 * Copie une instance d'objet et la conserve en mémoire pour une future restauration
+	 * @param o
+	 */
+	public void save(Object o) {
 		/*
 		 * 1. Créer une nouvelle instance s ayant le même type
 		 * 2. Recopier chaque attribut dans s
@@ -82,8 +88,18 @@ public class Transac {
 		 */
 	}
 	
+	/**
+	 * Appelé pour remettre en l'état les valeurs des attributs du dernier objet copié
+	 */
 	public void restore() {
 		
+	}
+	
+	/**
+	 * Appelé pour signifier qu'aucune erreur n'a été trouvé.
+	 */
+	public void noErrorFound() {
+		// détruit le sommet de pile
 	}
 	
 }
