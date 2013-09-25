@@ -19,7 +19,13 @@ public class Attribut {
 		this.isSimple = false;
 	}
 	
-	public Attribut(String variString, int intValue) {
+	public Attribut(String varString, Object value, boolean simple) {
+		this.variable = varString;
+		this.value = null;
+		this.isSimple = simple;
+	}
+	
+	/*public Attribut(String variString, int intValue) {
 		this.variable = variString;
 		this.value = new Integer(intValue);
 		this.isSimple = true;
@@ -41,7 +47,7 @@ public class Attribut {
 		this.variable = variString;
 		this.value = new Boolean(boolValue);
 		this.isSimple = true;
-	}
+	}*/
 	
 	public String getVariable() {
 		return variable;

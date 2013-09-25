@@ -1,8 +1,5 @@
 package fr.upmc.aladyn.transactionables;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -81,10 +78,9 @@ public class Transac {
 	 */
 	public void save(Object o) {
 		/*
-		 * 1. Créer une nouvelle instance s ayant le même type
-		 * 2. Recopier chaque attribut dans s
-		 * 3. Générer la clef 'instance.nomclasse.thread'
-		 * 4. ajouter la copie de l'objet dans le store
+		 * 1. Créer une nouvelle Copie puis recopier chaque attribut dans s
+		 * 2. Générer la clef 'instance.nomclasse.thread'
+		 * 3. ajouter la copie de l'objet dans le store
 		 */
 	}
 	
