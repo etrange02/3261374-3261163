@@ -120,4 +120,99 @@ public class Copie {
 	private String capitalize(String ligne) {
 		return Character.toUpperCase(ligne.charAt(0)) + ligne.substring(1);
 	}
+	
+	public Object sauveObjet(Object o1)
+	{
+		Class<?> c = o1.getClass();
+		Object o2=null;
+
+		try {
+			o2 = c.newInstance();
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+
+		return sauveField(c,o2);
+	}
+
+	public Object sauveField(Class<?> c, Object o)
+	{
+		Field[] tabF = c.getDeclaredFields();
+		for(int i=0;i<tabF.length;i++){
+			Field f;
+			try {
+				f = o.getClass().getDeclaredField(tabF[i].getName());
+				if (f.isAccessible()) {
+					f.set(o, tabF[0].get(c));
+				} else {
+					tabF[0].setAccessible(true);
+					f.setAccessible(true);
+					f.set(o, tabF[0].get(c));
+					f.setAccessible(false);
+					tabF[0].setAccessible(false);
+				}
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if(c.getName()=="Object")
+			return o;
+		else
+			return sauveField(c.getSuperclass(), o);
+	}
+
+	/**** restauration    *********/
+	public Object restaureObjet(Object o1)
+	{
+		Class<?> c = o1.getClass();
+		Object o2=null;
+
+		try {
+			o2 = c.newInstance();
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+
+		return restaureField(c,o2);
+	}
+
+	public Object restaureField(Class<?> c, Object o)
+	{
+		Field[] tabF = c.getDeclaredFields();
+		for(int i=0;i<tabF.length;i++){
+			Field f;
+			try {
+				f = o.getClass().getDeclaredField(tabF[i].getName());
+				tabF[0].setAccessible(true);
+				f.setAccessible(true);
+				f.set(o, tabF[0].get(c));
+				f.setAccessible(false);
+				tabF[0].setAccessible(false);
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if(c.getName()=="Object")
+			return o;
+		else
+			return restaureField(c.getSuperclass(), o);
+	}
 }
