@@ -2,6 +2,7 @@ package test.transactionablesClasses;
 
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 
+
 @Transactionable
 public class ClasseTransactionnable {
 
@@ -34,6 +35,6 @@ public class ClasseTransactionnable {
 	}
 	
 	public String toString() {
-		return "CT: x=" + x + "; y=" + y + "; somme=" + somme();
+		return "CT: x=" + x + "; y=" + y + "; somme=" + this.somme();
 	}
 }

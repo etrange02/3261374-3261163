@@ -35,8 +35,8 @@ public class Transac {
 	}
 	
 	public static void main(String[] args) {
-		TrTest1 t1 = new TrTest1();
-		Copie c = new Copie(t1);
+		TrTest1 t2 = new TrTest1();
+		Copie c = new Copie(t2);
 		c.restoreInstance();
 		
 //		Class<?> c = t1.getClass();
@@ -69,7 +69,7 @@ public class Transac {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}*/
-		System.out.println("x="+t1.getX());
+		System.out.println("x="+t2.getX());
 	}
 	
 	/**
