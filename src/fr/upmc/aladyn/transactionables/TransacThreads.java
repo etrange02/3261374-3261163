@@ -1,11 +1,10 @@
 package fr.upmc.aladyn.transactionables;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * Cette classe gère la copie et la restauration des objects
  * @author David Lecoconnier
  * @author Allan Mottier
  * 2013-10-05
@@ -34,9 +33,9 @@ public class TransacThreads {
 	 * @param idThread
 	 * @param m
 	 */
-	public void save(long idThread, Method m) {
+	public void save(long idThread, Object[] o) {
 		TransacMethods tm = new TransacMethods();
-		tm.copyTransacObjectsInMethod(m);
+		tm.copyTransacObjectsInMethod(o);
 		this.store.put(idThread, tm);
 	}
 	
