@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Cette classe gère la copie et la restauration des objects
+ * Cette classe gère la copie et la restauration des objets transationnables présents dans les différents threads
  * @author David Lecoconnier
  * @author Allan Mottier
  * 2013-10-05
@@ -30,10 +30,10 @@ public class TransacThreads {
 	
 	/**
 	 * Gère la méthode transtionnable appelé dans le thread idThread
-	 * @param idThread
-	 * @param m
+	 * @param idThread l'identifiant du thread appelant
+	 * @param o un tableau d'objet (pas nécessairement transactionable)
 	 */
-	public void save(long idThread, Object[] o) {
+	public synchronized void save(long idThread, Object[] o) {
 		TransacMethods tm = new TransacMethods();
 		tm.copyTransacObjectsInMethod(o);
 		this.store.put(idThread, tm);
@@ -41,20 +41,19 @@ public class TransacThreads {
 	
 	/**
 	 * Gère la restauration des objets transationnables de la méthode courante dans le thread idThread
-	 * @param idThread
+	 * @param idThread l'identifiant du thread appelant
 	 */
-	public void restore(long idThread) {
+	public synchronized void restore(long idThread) {
 		TransacMethods tm = this.store.get(idThread);
 		tm.restoreHeap();
 	}
 	
 	/**
 	 * Gère la destructions des objets transationnables utilisés dans la méthode courante dans le thread idThread
-	 * @param idThread
+	 * @param idThread l'identifiant du thread appelant
 	 */
-	public void endMethod(long idThread) {
+	public synchronized void endMethod(long idThread) {
 		TransacMethods tm = this.store.get(idThread);
 		tm.destroyHeap();
-		this.store.remove(idThread);
 	}
 }

@@ -30,7 +30,6 @@ public class Copie {
 	
 	/**
 	 * Copie tous les attributs de l'instance dans une sauvegarde. Fait aussi l'héritage
-	 * @param o l'instance à copier
 	 */
 	private void copyFields() {
 		Class<?> c = this.reference.getClass();
@@ -119,7 +118,7 @@ public class Copie {
 	/**
 	 * Met la première lettre en majuscule
 	 * @param ligne
-	 * @return
+	 * @return une chaine commençant par une majuscule
 	 */
 	private String capitalize(String ligne) {
 		return Character.toUpperCase(ligne.charAt(0)) + ligne.substring(1);
