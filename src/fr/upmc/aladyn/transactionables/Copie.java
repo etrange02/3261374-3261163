@@ -120,6 +120,7 @@ public class Copie {
 	 * @param ligne
 	 * @return une chaine commençant par une majuscule
 	 */
+	
 	private String capitalize(String ligne) {
 		return Character.toUpperCase(ligne.charAt(0)) + ligne.substring(1);
 	}
