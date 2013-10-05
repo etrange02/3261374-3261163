@@ -5,6 +5,7 @@ package fr.upmc.aladyn.transactionables;
  * Associe un nom de varaible à sa valeur. Respecte les types simples.
  * @author David Lecoconnier
  * @author Allan Mottier
+ * Useless
  */
 
 public class Attribut {

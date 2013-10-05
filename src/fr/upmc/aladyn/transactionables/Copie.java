@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Copie {
 
-	private Map<String, Attribut> save;
+	private Map<String, Object> save;
 	private Object reference;
 	
 	/**
@@ -24,7 +24,7 @@ public class Copie {
 	 */
 	public Copie(Object o) {
 		this.reference = o;
-		this.save = new HashMap<String, Attribut>();
+		this.save = new HashMap<String, Object>();
 		copyFields();
 	}
 	
@@ -43,7 +43,7 @@ public class Copie {
 				try {
 					field = f[i];
 					m = c.getMethod("get" + capitalize(field.getName()), field.getType());
-					save.put(field.getName(), new Attribut(field.getName(), m.invoke(this.reference), field.getType().getName().length() == 1));
+					save.put(field.getName(), m.invoke(this.reference));
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 				} catch (SecurityException e) {
@@ -58,7 +58,6 @@ public class Copie {
 			}
 			c = c.getSuperclass();
 		}
-
 		// voir setAccessible
 		/*switch (f[i].getType().getName()) {
 			case "I"://int
@@ -83,7 +82,7 @@ public class Copie {
 	 * @return l'instance
 	 */
 	public Object getReference() {
-		return reference;
+		return this.reference;
 	}
 	
 	/**
@@ -100,7 +99,7 @@ public class Copie {
 				try {
 					field = f[i];
 					m = c.getMethod("set" + capitalize(field.getName()), field.getType());
-					m.invoke(this.reference, save.get(field.getName()).getValue());
+					m.invoke(this.reference, save.get(field.getName()));
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 				} catch (SecurityException e) {
@@ -117,6 +116,11 @@ public class Copie {
 		}
 	}
 	
+	/**
+	 * Met la première lettre en majuscule
+	 * @param ligne
+	 * @return
+	 */
 	private String capitalize(String ligne) {
 		return Character.toUpperCase(ligne.charAt(0)) + ligne.substring(1);
 	}
