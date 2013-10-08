@@ -25,8 +25,14 @@ public class TrTest1 {
 		return y;
 	}
 
+	@Transactionable
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	@Transactionable
+	public void setZ(int y) throws Exception {
+		throw new Exception("loupé");
 	}
 
 

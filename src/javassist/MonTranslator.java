@@ -15,7 +15,7 @@ public class MonTranslator implements Translator {
 	public void onLoad(ClassPool pool, String classname) throws NotFoundException,CannotCompileException {
 		System.out.println("pool.get("+classname+")");
 		CtClass cc = pool.get(classname);
-		
+
 		CtMethod[] tabM = cc.getDeclaredMethods();
 		for(CtMethod m : tabM){
 			System.out.println("methode: "+m.getName());
@@ -27,14 +27,14 @@ public class MonTranslator implements Translator {
 			}
 			for(int i=0;i<tabA.length;i++){
 				if(tabA[i].toString().equals("@fr.upmc.aladyn.transactionables.annotations.Transactionable")){
-					Test1.changeMethode(cc, m);
+					javassist.Main.changeMethode(cc, m);
 					break;
 				}
 			}
 		}
-		
+
 		try {
-			cc.writeFile(Test1.directoryName);
+			cc.writeFile(Main.getDirectoryName());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

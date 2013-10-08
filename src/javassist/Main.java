@@ -1,31 +1,79 @@
 package javassist;
 
-import java.io.IOException;
-
 public class Main {
-	
-	
-	
+
+	private static String directoryName;
+
 	public static void main(String[] args) {
-		ClassPool pool = ClassPool.getDefault();
-		
-		
+		Translator t = new MonTranslator(); 
+		ClassPool pool = ClassPool.getDefault(); 
+		Loader cl = new Loader();
 		try {
-			CtClass cc = pool.get("javassist.Print");
-			CtMethod cm = cc.getDeclaredMethod("draw");
-			cm.insertAfter("{System.out.println(\"test\");}");
-			cc.writeFile();
-			System.out.println("done");
+			cl.addTranslator(pool,t);
+			cl.run("javassist.Test",args); 
+		} catch (NotFoundException | CannotCompileException e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void changeMethode(CtClass cc,CtMethod cm){
+		try {
+			StringBuffer src= new StringBuffer();
+			src.append(cm.getReturnType().getName()+" "+cm.getName()+" ( ");
+
+			CtClass[] params = cm.getParameterTypes();
+			int i;
+			if(params.length>0){
+				for(i = 0 ; i< params.length-1; i++){
+					src.append(params[i].getName()+" transac_param"+i+",");
+				}
+				src.append(params[i].getName()+" transac_param"+i);
+			}
+			int[] tabO = new int[params.length];
+			int j=0;
+			for(i=0;i<params.length;i++){
+				if(!params[i].isPrimitive()){
+					tabO[j]=i;
+					j++;
+				}
+			}
+			src.append(") { System.out.println(\"debut testing\");");
+			src.append( "Object[] tabO = new Object["+(j+1)+"];  tabO[0]=this; " );
+			for(i = 0 ; i< j; i++){
+				src.append("tabO["+(i+1)+"]= transac_param"+tabO[i]+"; ");
+			}
+			src.append("fr.upmc.aladyn.transactionables.TransacThreads tt = fr.upmc.aladyn.transactionables.TransacThreads.Get(); tt.save(Thread.currentThread().getId(),tabO); try{ System.out.println(\"try\");");
+			src.append("return this.transac_"+cm.getName()+"(");
+			if(params.length>0){
+				for(i = 0 ; i< params.length-1; i++){
+					src.append(" transac_param"+i+",");
+				}
+				src.append(" transac_param"+i);
+			}
+			src.append(");");
+
+			src.append("}catch(Exception e){ tt.restore(Thread.currentThread().getId()); System.out.println(\"catch\");throw e; }finally{ System.out.println(\"finally\"); tt.endMethod(Thread.currentThread().getId());} }");
+			src.append("}");
+			System.out.println("Methode : "+src);
+			cm.setName("transac_"+cm.getName());
+			CtMethod nm = CtNewMethod.make(src.toString(), cc);
+			nm.setModifiers(cm.getModifiers());;
+
+			cc.addMethod(nm);
+
 		} catch (CannotCompileException e) {
 			e.printStackTrace();
 		} catch (NotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		
-		Print p = new Print();
-		p.draw();
 	}
 
+	public static String getDirectoryName(){
+		if(directoryName==null){
+			directoryName = System.getProperty("user.dir") + System.getProperty("file.separator") + "bin";
+		}
+		return directoryName;
+	}
 }
