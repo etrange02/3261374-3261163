@@ -33,17 +33,19 @@ public class Copie {
 	 */
 	private void copyFields() {
 		Class<?> c = this.reference.getClass();
-		Field[] f = c.getDeclaredFields();
+		Field[] f = null;
 		Method m = null;
 		Field field = null;
 		
 		while (c != null) {
+			f = c.getDeclaredFields();
 			for (int i = 0; i < f.length; i++) {
 				try {
 					field = f[i];
-					m = c.getMethod("get" + capitalize(field.getName()), field.getType());
+					m = c.getMethod("get" + capitalize(field.getName()), null);
 					save.put(field.getName(), m.invoke(this.reference));
 				} catch (NoSuchMethodException e) {
+					System.out.println(i);
 					e.printStackTrace();
 				} catch (SecurityException e) {
 					e.printStackTrace();
@@ -89,11 +91,12 @@ public class Copie {
 	 */
 	public void restoreInstance() {
 		Class<?> c = this.reference.getClass();		
-		Field[] f = c.getDeclaredFields();
+		Field[] f = null;
 		Method m = null;
 		Field field = null;
 		
 		while (c != null) {
+			f = c.getDeclaredFields();
 			for (int i = 0; i < f.length; i++) {
 				try {
 					field = f[i];

@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.Stack;
 
 /**
- * Gère une pile contenant les objets transationnables utilisés dans chaque méthode.
+ * Gère une pile contenant les objets transactionnables utilisés dans chaque méthode.
  * @author David Lecoconnier
  * @author Allan Mottier
  * 2013-10-05
@@ -49,7 +49,8 @@ public class TransacMethods {
 	 * Supprime le sommet de pile, i.e. les copies des objets transactionnables utilisés dans la méthode
 	 */
 	public void destroyHeap() {
-		this.pile.pop();
+		if (!this.pile.isEmpty())
+			this.pile.pop();
 	}
 	
 	/**
@@ -59,8 +60,9 @@ public class TransacMethods {
 	 */
 	private boolean isTransactionnable(Annotation[] a) {
 		for (int i = 0; i<a.length; ++i) {
-			if (a[0].toString() == "fr.upmc.aladyn.transactionables.annotations.Transactionable")
+			if (a[i].toString().equals("@fr.upmc.aladyn.transactionables.annotations.Transactionable()")){
 				return true;
+			}
 		}
 		return false;
 	}

@@ -13,12 +13,10 @@ public class MonTranslator implements Translator {
 
 	@Override
 	public void onLoad(ClassPool pool, String classname) throws NotFoundException,CannotCompileException {
-		System.out.println("pool.get("+classname+")");
 		CtClass cc = pool.get(classname);
 
 		CtMethod[] tabM = cc.getDeclaredMethods();
 		for(CtMethod m : tabM){
-			System.out.println("methode: "+m.getName());
 			Object[] tabA = null;
 			try {
 				tabA = m.getAnnotations();

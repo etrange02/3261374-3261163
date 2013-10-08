@@ -32,6 +32,7 @@ public class TrTest1 {
 	
 	@Transactionable
 	public void setZ(int y) throws Exception {
+		this.y = y;
 		throw new Exception("loupé");
 	}
 

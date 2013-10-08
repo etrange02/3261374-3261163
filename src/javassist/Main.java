@@ -39,12 +39,12 @@ public class Main {
 					j++;
 				}
 			}
-			src.append(") { System.out.println(\"debut testing\");");
+			src.append(") {");
 			src.append( "Object[] tabO = new Object["+(j+1)+"];  tabO[0]=this; " );
 			for(i = 0 ; i< j; i++){
 				src.append("tabO["+(i+1)+"]= transac_param"+tabO[i]+"; ");
 			}
-			src.append("fr.upmc.aladyn.transactionables.TransacThreads tt = fr.upmc.aladyn.transactionables.TransacThreads.Get(); tt.save(Thread.currentThread().getId(),tabO); try{ System.out.println(\"try\");");
+			src.append("fr.upmc.aladyn.transactionables.TransacThreads tt = fr.upmc.aladyn.transactionables.TransacThreads.Get(); tt.save(Thread.currentThread().getId(),tabO); try{ ");
 			src.append("return this.transac_"+cm.getName()+"(");
 			if(params.length>0){
 				for(i = 0 ; i< params.length-1; i++){
@@ -54,9 +54,8 @@ public class Main {
 			}
 			src.append(");");
 
-			src.append("}catch(Exception e){ tt.restore(Thread.currentThread().getId()); System.out.println(\"catch\");throw e; }finally{ System.out.println(\"finally\"); tt.endMethod(Thread.currentThread().getId());} }");
+			src.append("  }catch(Exception e){ tt.restore(Thread.currentThread().getId()); throw e; }finally{ tt.endMethod(Thread.currentThread().getId()); } }");
 			src.append("}");
-			System.out.println("Methode : "+src);
 			cm.setName("transac_"+cm.getName());
 			CtMethod nm = CtNewMethod.make(src.toString(), cc);
 			nm.setModifiers(cm.getModifiers());;
