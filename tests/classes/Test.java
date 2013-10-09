@@ -1,4 +1,4 @@
-package fr.upmc.aladyn.transactionables;
+package classes;
 
 public class Test { 
 	protected int i ; 

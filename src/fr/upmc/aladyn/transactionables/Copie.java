@@ -88,6 +88,7 @@ public class Copie {
 	
 	/**
 	 * Restaure les attributs de l'objet copié
+	 * /!\ A tester avec un iterator sur la map /!\
 	 */
 	public void restoreInstance() {
 		Class<?> c = this.reference.getClass();		

@@ -11,6 +11,7 @@ public class Main {
 		try {
 			cl.addTranslator(pool,t);
 			cl.run("javassist.Test",args); 
+			
 		} catch (NotFoundException | CannotCompileException e) {
 			e.printStackTrace();
 		} catch (Throwable e) {
