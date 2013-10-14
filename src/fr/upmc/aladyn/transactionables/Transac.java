@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 /**
- * Gère les transactions des différents threads
+ * Gere les transactions des differents threads
  * @author David Lecoconnier
  * @author Allan Mottier
  * 2013-09-18
@@ -21,15 +21,15 @@ public class Transac {
 	}
 	
 	/**
-	 * Copie une instance d'objet et la conserve en mémoire pour une future restauration
-	 * @param o l'objet à copier
+	 * Copie une instance d'objet et la conserve en memoire pour une future restauration
+	 * @param o l'objet a copier
 	 */
 	public void saveNewObject(Object o) {
 		this.copies.add(new Copie(o));
 	}
 	
 	/**
-	 * Appelé pour remettre en l'état les valeurs des attributs du dernier objet copié
+	 * Appele pour remettre en l'etat les valeurs des attributs du dernier objet copie
 	 */
 	public void restore() {
 		Iterator<Copie> iter = this.copies.iterator();

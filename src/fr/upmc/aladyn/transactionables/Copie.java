@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * 24/09/2013
- * Représente la copie d'un objet : copie des valeurs des attributs de ce dernier
+ * Represente la copie d'un objet : copie des valeurs des attributs de ce dernier
  * @author David Lecoconnier
  * @author Allan Mottier
  */
@@ -20,7 +20,7 @@ public class Copie {
 	
 	/**
 	 * Constructeur
-	 * @param o l'instance à copier
+	 * @param o l'instance a copier
 	 */
 	public Copie(Object o) {
 		this.reference = o;
@@ -29,7 +29,7 @@ public class Copie {
 	}
 	
 	/**
-	 * Copie tous les attributs de l'instance dans une sauvegarde. Fait aussi l'héritage
+	 * Copie tous les attributs de l'instance dans une sauvegarde. Fait aussi l'heritage
 	 */
 	private void copyFields() {
 		Class<?> c = this.reference.getClass();
@@ -79,7 +79,7 @@ public class Copie {
 	}
 
 	/**
-	 * Renvoie l'instance de l'objet copié
+	 * Renvoie l'instance de l'objet copie
 	 * @return l'instance
 	 */
 	public Object getReference() {
@@ -87,7 +87,7 @@ public class Copie {
 	}
 	
 	/**
-	 * Restaure les attributs de l'objet copié
+	 * Restaure les attributs de l'objet copie
 	 * /!\ A tester avec un iterator sur la map /!\
 	 */
 	public void restoreInstance() {
@@ -120,7 +120,7 @@ public class Copie {
 	}
 	
 	/**
-	 * Met la première lettre en majuscule
+	 * Met la premiere lettre en majuscule
 	 * @param ligne
 	 * @return une chaine commençant par une majuscule
 	 */

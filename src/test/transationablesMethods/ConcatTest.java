@@ -9,7 +9,7 @@ public class ConcatTest {
 	}
 	
 	/**
-	 * Renvoie la concaténation de csp1 et csp2
+	 * Renvoie la concatenation de csp1 et csp2
 	 * @param csp1
 	 * @param csp2
 	 * @return "csp1 csp2" avec un espace
@@ -20,7 +20,7 @@ public class ConcatTest {
 	}
 	
 	/**
-	 * Renvoie la concaténation de "result" + s1 + s2
+	 * Renvoie la concatenation de "result" + s1 + s2
 	 * @param s1
 	 * @param s2
 	 * @return "result=" + s1 + s2
@@ -37,7 +37,7 @@ public class ConcatTest {
 	}
 	
 	/**
-	 * Renvoie Hello World en modifiant les deux classes en paramètre
+	 * Renvoie Hello World en modifiant les deux classes en parametre
 	 * @param csp1
 	 * @param csp2
 	 * @return "Hello World"

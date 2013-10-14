@@ -11,7 +11,7 @@ public class CalcTest {
 	}
 	
 	/**
-	 * Somme par défaut de deux entiers
+	 * Somme par defaut de deux entiers
 	 * @param i1
 	 * @param i2
 	 * @return i1 + i2
@@ -42,7 +42,7 @@ public class CalcTest {
 	}
 	
 	/**
-	 * Renvoie la somme de ct et z. ct est mis à 0.
+	 * Renvoie la somme de ct et z. ct est mis a 0.
 	 * @param ct
 	 * @param z
 	 * @return la valeur de z.

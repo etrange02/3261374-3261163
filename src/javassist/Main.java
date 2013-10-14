@@ -1,5 +1,15 @@
 package javassist;
 
+import javassist.expr.ExprEditor;
+import javassist.expr.Handler;
+
+/**
+ * Classe principale d'appel pour gerer la sauvegarde/restauration
+ * 
+ * @author allan
+ * @author david
+ *
+ */
 public class Main {
 
 	private static String directoryName;
@@ -11,7 +21,7 @@ public class Main {
 		try {
 			cl.addTranslator(pool,t);
 			cl.run("javassist.Test",args); 
-			
+
 		} catch (NotFoundException | CannotCompileException e) {
 			e.printStackTrace();
 		} catch (Throwable e) {
@@ -19,11 +29,27 @@ public class Main {
 		}
 	}
 
-	public static void changeMethode(CtClass cc,CtMethod cm){
-		try {
+	/**
+	 * Modifie une méthode transactionnable pour y inserer le system de sauvegarde/restauration
+	 * 
+	 * @param cc CtClass dont on veut modifier la methode
+	 * @param cm La methode a modifier
+	 * @throws CannotCompileException 
+	 * @throws NotFoundException 
+	 */
+	public static void changeMethode(CtClass cc,CtMethod cm) throws CannotCompileException, NotFoundException{
+			
+			// insert la restauration des objet transactionnable au debut de tout les catch de l'utilisateur
+			cm.instrument(new ExprEditor() {
+				public void edit(Handler ha) throws CannotCompileException{
+					ha.insertBefore("fr.upmc.aladyn.transactionables.TransacThreads.Get().restore(Thread.currentThread().getId()); System.out.println(\"Je suis dans le catch !\");");
+				}
+			});
+			
+			// crée une nouvelle méthode du nom de l'ancienne afin d'entourer la dite méthode 
+			// d'un try catch et du system de sauvegarde/restauration
 			StringBuffer src= new StringBuffer();
 			src.append(cm.getReturnType().getName()+" "+cm.getName()+" ( ");
-
 			CtClass[] params = cm.getParameterTypes();
 			int i;
 			if(params.length>0){
@@ -54,22 +80,21 @@ public class Main {
 				src.append(" transac_param"+i);
 			}
 			src.append(");");
-
 			src.append("  }catch(Exception e){ tt.restore(Thread.currentThread().getId()); throw e; }finally{ tt.endMethod(Thread.currentThread().getId()); } }");
 			src.append("}");
+			
+			// Renomme l'ancienne méthode puis ajoute la remplacante
 			cm.setName("transac_"+cm.getName());
 			CtMethod nm = CtNewMethod.make(src.toString(), cc);
 			nm.setModifiers(cm.getModifiers());;
 
 			cc.addMethod(nm);
-
-		} catch (CannotCompileException e) {
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
+	/**
+	 * 
+	 * @return la chaine représentant le path du repertoire contenant les .class
+	 */
 	public static String getDirectoryName(){
 		if(directoryName==null){
 			directoryName = System.getProperty("user.dir") + System.getProperty("file.separator") + "bin";
