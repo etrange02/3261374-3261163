@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Allan Mottier
  */
 
-public class Copie {
+public class TransacObjectCopy {
 
 	private Map<String, Object> save;
 	private Object reference;
@@ -22,7 +22,7 @@ public class Copie {
 	 * Constructeur
 	 * @param o l'instance a copier
 	 */
-	public Copie(Object o) {
+	public TransacObjectCopy(Object o) {
 		this.reference = o;
 		this.save = new HashMap<String, Object>();
 		copyFields();
@@ -59,23 +59,6 @@ public class Copie {
 			}
 			c = c.getSuperclass();
 		}
-		// voir setAccessible
-		/*switch (f[i].getType().getName()) {
-			case "I"://int
-				save.add(new Attribut(f[i].getName(), f[i].getInt(obj)));
-				break;
-			case "B"://int
-				break;
-			case "Z"://int
-				break;
-			case "C"://int
-				break;
-			case "F"://int
-				break;
-			case "D"://int
-				break;
-			default:
-		}*/ 
 	}
 
 	/**

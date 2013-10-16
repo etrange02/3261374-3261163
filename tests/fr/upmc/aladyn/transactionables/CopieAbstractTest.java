@@ -12,14 +12,13 @@ public abstract class CopieAbstractTest {
 	
 	@After
 	public void afterTest() {
-		
 	}
 	
 	@Before
 	public abstract void beforeTest();
 	
 	@Test
-	public void test1() {
+	public void testCopie() {
 		
 	}
 }
