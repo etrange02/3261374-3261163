@@ -3,6 +3,7 @@ package fr.upmc.aladyn.transactionables;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +43,12 @@ public class TransacObjectCopy {
 			for (int i = 0; i < f.length; i++) {
 				try {
 					field = f[i];
-					m = c.getMethod("get" + capitalize(field.getName()), null);
-					save.put(field.getName(), m.invoke(this.reference));
+					if (f.getClass().isArray()) { // type tableau
+						copyArray(field);
+					} else { // type normal
+						m = c.getMethod("get" + capitalize(field.getName()), null);
+						save.put(field.getName(), m.invoke(this.reference));
+					}
 				} catch (NoSuchMethodException e) {
 					System.out.println(i);
 					e.printStackTrace();
@@ -58,6 +63,27 @@ public class TransacObjectCopy {
 				}
 			}
 			c = c.getSuperclass();
+		}
+	}
+	
+	/**
+	 * Copie le contenu d'un tableau associe a un champ
+	 * @param f
+	 */
+	private void copyArray(Field f) {		
+		try {
+			Method m = this.reference.getClass().getMethod("get" + capitalize(f.getName()), null);
+			Object[] res = (Object[]) m.invoke(this.reference);
+			res.getClass().cast(f.getClass());
+			save.put(f.getName(), Arrays.copyOf(res, res.length));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -107,7 +133,6 @@ public class TransacObjectCopy {
 	 * @param ligne
 	 * @return une chaine commençant par une majuscule
 	 */
-	
 	private String capitalize(String ligne) {
 		return Character.toUpperCase(ligne.charAt(0)) + ligne.substring(1);
 	}

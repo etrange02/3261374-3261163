@@ -61,7 +61,7 @@ public class TransacPool {
 	/**
 	 * Indique si l'on est dans l'appel d'une methode transactionable et qu'aucune restauration n'est en cours
 	 * @param idThread l'identifiant du thread appelant
-	 * @return
+	 * @return vrai si une transaction est possible
 	 */
 	public boolean isTransactionableMethodAndNoRestoring(long idThread) {
 		if (this.store.containsKey(idThread)) {
