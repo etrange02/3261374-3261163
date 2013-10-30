@@ -43,7 +43,7 @@ public class TransacObjectCopy {
 			for (int i = 0; i < f.length; i++) {
 				try {
 					field = f[i];
-					if (f.getClass().isArray()) { // type tableau
+					if (field.getClass().isArray()) { // type tableau
 						copyArray(field);
 					} else { // type normal
 						m = c.getMethod("get" + capitalize(field.getName()), null);

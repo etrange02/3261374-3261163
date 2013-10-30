@@ -1,5 +1,8 @@
 package classes;
 
+import fr.upmc.aladyn.transactionables.annotations.Transactionable;
+
+@Transactionable
 public class Reference {
 	private Object o;
 	
