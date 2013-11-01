@@ -28,12 +28,7 @@ public class TransacObjectCopyTest {
 	
 	@After
 	public void afterTest() {
-		this.toc = null;
-	}
-	
-	@Before
-	public void beforeTest() {
-		return;
+		setTransacObjectCopy(null);
 	}
 	
 	@Test
@@ -41,6 +36,7 @@ public class TransacObjectCopyTest {
 		System.out.println("Restoring test - integer and string...");
 		// init
 		EntierChaine ec = new EntierChaine(3,  "test");
+		setTransacObjectCopy(new TransacObjectCopy(ec));
 		
 		// modifications		
 		ec.setEntier(5);

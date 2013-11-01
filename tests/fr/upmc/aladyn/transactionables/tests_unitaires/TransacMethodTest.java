@@ -28,7 +28,7 @@ public class TransacMethodTest {
 	
 	@After
 	public void afterTest() {
-		this.tm = null;
+		setTransacMethod(null);
 	}
 	
 	@Before

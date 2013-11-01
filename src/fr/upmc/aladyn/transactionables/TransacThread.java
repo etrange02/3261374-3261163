@@ -67,7 +67,7 @@ public class TransacThread {
 	}
 	
 	/**
-	 * Indique si des contextes de methodes transactionables ont été cres
+	 * Indique si des contextes de methodes transactionables ont ete crees
 	 * @return true s'il n'y a pas de contexte
 	 */
 	public boolean isEmpty() {
