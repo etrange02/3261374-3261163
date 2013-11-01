@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public class TransacPool {
-	public static TransacPool s_TransacInstance = null;
+	public static TransacPool s_TransacInstance = null;// public to make easier tests
 	private Map<Long, TransacThread> store;
 	
 	/**
