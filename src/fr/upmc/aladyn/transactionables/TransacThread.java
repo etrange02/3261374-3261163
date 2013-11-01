@@ -28,7 +28,7 @@ public class TransacThread {
 	 * @param o
 	 */
 	public void copyTransacObjectInSubTransacMethod(Object o) {
-		if (isEmpty() && !isRestoring())
+		if (isEmpty() || isRestoring())
 			return;
 		
 		TransacMethod tm = this.pile.peek();

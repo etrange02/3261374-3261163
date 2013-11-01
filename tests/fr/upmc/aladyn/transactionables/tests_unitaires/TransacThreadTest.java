@@ -1,8 +1,6 @@
 package fr.upmc.aladyn.transactionables.tests_unitaires;
 
 import java.util.EmptyStackException;
-import java.util.Scanner;
-
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -11,7 +9,6 @@ import org.junit.Test;
 
 import classes.ClassWithTransactionableMethods;
 import classes.ClasseTransactionnable;
-import classes.Reference;
 import fr.upmc.aladyn.transactionables.TransacThread;
 
 public class TransacThreadTest {
@@ -38,7 +35,7 @@ public class TransacThreadTest {
 
 	@Test
 	public void testWithoutEnvironment() throws Exception {
-		System.out.println("Restoring test - integer and string...");
+		System.out.println("Restoring test - no environment...");
 		// init
 		ClasseTransactionnable ct = new ClasseTransactionnable();
 		ClassWithTransactionableMethods cwtm = new ClassWithTransactionableMethods(ct);
@@ -62,7 +59,7 @@ public class TransacThreadTest {
 
 	@Test
 	public void testWithEnvironment_ErrorSimulazed() {
-		System.out.println("Restoring test - integer and string...");
+		System.out.println("Restoring test - error simulazed...");
 		// init
 		ClasseTransactionnable ct = new ClasseTransactionnable();
 		ClassWithTransactionableMethods cwtm = new ClassWithTransactionableMethods(ct);
@@ -84,7 +81,7 @@ public class TransacThreadTest {
 
 	@Test
 	public void testWithEnvironment_WellBeenSimulazed() {
-		System.out.println("Restoring test - integer and string...");
+		System.out.println("Restoring test - all ok 1...");
 		// init
 		ClasseTransactionnable ct = new ClasseTransactionnable();
 		ClassWithTransactionableMethods cwtm = new ClassWithTransactionableMethods(ct);
@@ -106,7 +103,7 @@ public class TransacThreadTest {
 
 	@Test
 	public void testWithEnvironment_2levels_ErrorSimulazedOn2() {
-		System.out.println("Restoring test - integer and string...");
+		System.out.println("Restoring test - error 2/2...");
 		// init
 		ClasseTransactionnable ct = new ClasseTransactionnable();
 		ClassWithTransactionableMethods cwtm = new ClassWithTransactionableMethods(ct);
@@ -131,7 +128,7 @@ public class TransacThreadTest {
 
 	@Test
 	public void testWithEnvironment_2levels_ErrorSimulazedOn1() {
-		System.out.println("Restoring test - integer and string...");
+		System.out.println("Restoring test - error 1/2...");
 		// init
 		ClasseTransactionnable ct = new ClasseTransactionnable();
 		ClassWithTransactionableMethods cwtm = new ClassWithTransactionableMethods(ct);
@@ -157,7 +154,7 @@ public class TransacThreadTest {
 
 	@Test
 	public void testWithEnvironment_2levels_WellBeenSimulazed() {
-		System.out.println("Restoring test - integer and string...");
+		System.out.println("Restoring test - all ok 2...");
 		// init
 		ClasseTransactionnable ct = new ClasseTransactionnable();
 		ClassWithTransactionableMethods cwtm = new ClassWithTransactionableMethods(ct);

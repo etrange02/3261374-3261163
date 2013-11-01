@@ -25,7 +25,7 @@ public class TransacPool {
 	 * Singleton
 	 * @return l'instance de la classe
 	 */
-	public static TransacPool Get() {
+	public synchronized static TransacPool Get() {
 		if (null == s_TransacInstance)
 			s_TransacInstance = new TransacPool();
 		return s_TransacInstance;
@@ -59,16 +59,17 @@ public class TransacPool {
 	}
 	
 	/**
+	 * On peut se passer de cette méthode, elle est implemente de base dans TransacThread
 	 * Indique si l'on est dans l'appel d'une methode transactionable et qu'aucune restauration n'est en cours
 	 * @param idThread l'identifiant du thread appelant
 	 * @return vrai si une transaction est possible
 	 */
-	public boolean isTransactionableMethodAndNoRestoring(long idThread) {
+	/*public boolean isTransactionableMethodAndNoRestoring(long idThread) {
 		if (this.store.containsKey(idThread)) {
 			return !this.store.get(idThread).isEmpty() && !this.store.get(idThread).isRestoring();
 		}
 		return false;
-	}
+	}*/
 	
 	/**
 	 * Gere la restauration des objets transactionables de la methode courante dans le thread idThread
@@ -76,7 +77,8 @@ public class TransacPool {
 	 */
 	public synchronized void restore(long idThread) {
 		TransacThread tm = this.store.get(idThread);
-		tm.restoreHeap();
+		if (tm != null)
+			tm.restoreHeap();
 	}
 	
 	/**
