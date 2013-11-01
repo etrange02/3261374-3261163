@@ -31,10 +31,4 @@ public class ClassWithTransactionableMethods {
 		ref.setX(4);
 		ref.setY(8);
 	}
-	
-	@Transactionable
-	public void transMethod4() {
-		
-	}
-
 }
