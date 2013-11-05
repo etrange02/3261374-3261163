@@ -57,7 +57,7 @@ public class TrTest1 {
 	@Transactionable
 	public void machin2() throws Exception{
 		try{
-			this.x=-1;
+			this.x=-2;
 			this.x=2/0;
 	}catch(Exception e){
 		System.out.println("Deja dans le catch et x = "+this.x);

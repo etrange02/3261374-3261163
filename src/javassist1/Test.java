@@ -1,4 +1,4 @@
-package javassist;
+package javassist1;
 
 import test.transactionables.TrTest1;
 
@@ -21,7 +21,12 @@ public class Test {
 		tt.machin();
 		System.out.println("apres3: "+tt.getX());
 		System.out.println("avant4: "+tt.getX());
-		tt.machin();
+		try {
+			tt.machin2();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("apres4: "+tt.getX());
 		System.out.println("fin main");
 	}

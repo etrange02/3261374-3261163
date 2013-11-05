@@ -1,4 +1,4 @@
-package javassist;
+package javassist1;
 
 import java.io.IOException;
 
@@ -25,19 +25,33 @@ public class MonTranslator implements Translator {
 	public void onLoad(ClassPool pool, String classname) throws NotFoundException,CannotCompileException {
 		CtClass cc = pool.get(classname);
 		
-		CtMethod[] tabM = cc.getDeclaredMethods();
+		boolean classTr = false;
+		if(cc.hasAnnotation(fr.upmc.aladyn.transactionables.annotations.Transactionable.class))
+			classTr = true;
+		
+		CtMethod[] tabM = cc.getMethods();
 		for(CtMethod m : tabM){
-			Object[] tabA = null;
-			try {
-				tabA = m.getAnnotations();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			if(classTr && m.getName().startsWith("set")){
+				System.out.println(classname+" "+m.getName()+" - 1");
+				javassist1.Main.changeSet(cc,m);
+				System.out.println(classname+" "+m.getName()+" - 1,2");
 			}
-			for(int i=0;i<tabA.length;i++){
-				if(tabA[i] instanceof Transactionable){
-					javassist.Main.changeMethode(cc, m);
-					break;
+			else {
+				System.out.println(classname+" "+m.getName()+" - 2");
+				Object[] tabA = null;
+				try {
+					tabA = m.getAnnotations();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 				}
+				for(int i=0;i<tabA.length;i++){
+					if(tabA[i] instanceof Transactionable){
+						System.out.println(classname+" "+m.getName()+" - 2,2");
+						javassist1.Main.changeMethodeTr(cc, m);
+						break;
+					}
+				}
+				System.out.println(classname+" "+m.getName()+" - 2,3");
 			}
 		}
 
