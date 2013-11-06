@@ -19,12 +19,16 @@ public class MetaTransac extends Metaobject {
 		if(getObject().getClass().getDeclaredMethod(getMethodName(arg0), getParameterTypes(arg0)).isAnnotationPresent(fr.upmc.aladyn.transactionables.annotations.Transactionable.class)){
 			System.out.println("Meta : debut method transac : "+getObject().getClass().getName()+";"+getMethodName(arg0));
 			try{
+				// On cree un contexte
+				fr.upmc.aladyn.transactionables.TransacPool.Get().transactionableMethod(Thread.currentThread().getId());
 				return super.trapMethodcall(arg0, arg1);
 			}catch(Throwable t){
+				// on restaure tout le contexte
 				fr.upmc.aladyn.transactionables.TransacPool.Get().restore(Thread.currentThread().getId());
 				System.out.println("Meta : catch method transac : "+getObject().getClass().getName()+";"+getMethodName(arg0));
 				throw t;
 			}finally{
+				// on supprime le contexte
 				fr.upmc.aladyn.transactionables.TransacPool.Get().endMethod(Thread.currentThread().getId());
 				System.out.println("Meta : end method transac : "+getObject().getClass().getName()+";"+getMethodName(arg0));
 			}
