@@ -45,7 +45,9 @@ public class Main {
 	 * @throws NotFoundException 
 	 */
 	public static void changeMethodeTr(CtClass cc,CtMethod cm) throws CannotCompileException, NotFoundException{
-			
+			// on cree un contexte
+			cm.insertBefore("{fr.upmc.aladyn.transactionables.TransacPool.Get().transactionableMethod(Thread.currentThread().getId());}");
+		
 			// insert la restauration des objet transactionnable au debut de tout les catch de l'utilisateur
 			cm.instrument(new ExprEditor() {
 				public void edit(Handler ha) throws CannotCompileException{
