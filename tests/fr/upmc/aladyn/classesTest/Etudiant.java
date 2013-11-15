@@ -1,5 +1,12 @@
 package fr.upmc.aladyn.classesTest;
 
+/**
+ * Classe héritant d'une classe Transactionable pour les tests
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 public class Etudiant extends AbstractPersonne {
 	
 	private int numeroEtu;

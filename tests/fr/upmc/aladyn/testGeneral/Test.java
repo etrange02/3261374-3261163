@@ -2,6 +2,13 @@ package fr.upmc.aladyn.testGeneral;
 
 import fr.upmc.aladyn.classesTest.TrTest1;
 
+/**
+ * Classe contenant un Main et appelée par le Main de javassist ou le Main de metaObj pour les tests
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 public class Test {
 	public static void main(String[] args){
 		System.out.println("Debut Main");

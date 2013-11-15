@@ -7,6 +7,13 @@ import fr.upmc.aladyn.classesTest.ClassWithTransactionableMethods;
 import fr.upmc.aladyn.classesTest.ClasseTransactionnable;
 import fr.upmc.aladyn.transactionables.TransacPool;
 
+/**
+ * Classe de test des TransacPool
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 public class TransacPoolTest {
 		
 	@Before

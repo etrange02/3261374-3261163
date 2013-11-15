@@ -2,6 +2,13 @@ package fr.upmc.aladyn.classesTest;
 
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 
+/**
+ * Classe abstraite et Transactionable pour les tests
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 @Transactionable
 public abstract class AbstractPersonne {
 	

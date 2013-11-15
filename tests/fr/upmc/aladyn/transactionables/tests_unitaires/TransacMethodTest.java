@@ -11,6 +11,13 @@ import fr.upmc.aladyn.classesTest.Reference;
 import fr.upmc.aladyn.classesTest.Tableau;
 import fr.upmc.aladyn.transactionables.TransacMethod;
 
+/**
+ * Classe de test des TransacMethod
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 public class TransacMethodTest {
 	
 	protected TransacMethod tm = null;

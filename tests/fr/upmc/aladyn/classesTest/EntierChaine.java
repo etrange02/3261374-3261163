@@ -1,5 +1,12 @@
 package fr.upmc.aladyn.classesTest;
 
+/**
+ * Classe pour les tests
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 public class EntierChaine {
 	private int entier;
 	private String chaine;

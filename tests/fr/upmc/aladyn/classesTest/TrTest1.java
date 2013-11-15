@@ -4,6 +4,14 @@ import java.nio.file.NoSuchFileException;
 
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 
+/**
+ * Classe Transactionable héritant d'une classe Transactionable avec 
+ * plusieurs méthodes Transactionables de plusieurs type pour les tests
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 @Transactionable
 public class TrTest1 extends TrTest2{
 

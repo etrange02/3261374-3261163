@@ -11,6 +11,12 @@ import fr.upmc.aladyn.classesTest.Reference;
 import fr.upmc.aladyn.classesTest.Tableau;
 import fr.upmc.aladyn.transactionables.TransacObjectCopy;
 
+/**
+ * Classe de test des TransacObjectCopy
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
 
 @SuppressWarnings("unused")
 public class TransacObjectCopyTest {

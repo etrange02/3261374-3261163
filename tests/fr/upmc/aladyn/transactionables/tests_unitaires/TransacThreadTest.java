@@ -11,6 +11,13 @@ import fr.upmc.aladyn.classesTest.ClasseTransactionnable;
 import fr.upmc.aladyn.classesTest.Etudiant;
 import fr.upmc.aladyn.transactionables.TransacThread;
 
+/**
+ * Classe de test des TransacThread
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 public class TransacThreadTest {
 
 	protected TransacThread tt = null;

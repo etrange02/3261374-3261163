@@ -2,6 +2,13 @@ package fr.upmc.aladyn.classesTest;
 
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 
+/**
+ * Classe avec des méthodes Transactionable pour les tests
+ * @author David Lecoconnier
+ * @author Allan Mottier
+ * 
+ */
+
 public class ClassWithTransactionableMethods {
 	
 	protected ClasseTransactionnable ref;
