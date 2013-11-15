@@ -1,7 +1,5 @@
 package fr.upmc.aladyn.transactionables.tests_unitaires;
 
-import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +34,11 @@ public class TransacMethodTest {
 		setTransacMethod(new TransacMethod());
 	}
 	
+	/**
+	 * Check the restoration of a transactionable class where attributes are simple types
+	 */
 	@Test
-	public void test_restoreClasseTransactionnable() {
+	public void test_restoreClasseTransactionable() {
 		System.out.println("Restoring object - ClasseTransactionnable...");
 		// init
 		ClasseTransactionnable ct = new ClasseTransactionnable();
@@ -53,11 +54,14 @@ public class TransacMethodTest {
 		getTransacMethod().restore();
 		
 		// oracle
-		Assert.assertTrue("X must be 0", ct.getX() == 0);
-		Assert.assertTrue("Y must be 3", ct.getY() == 3);
-		Assert.assertTrue("Sum must be 3", ct.somme() == 3);
+		org.junit.Assert.assertTrue("X must be 0", ct.getX() == 0);
+		org.junit.Assert.assertTrue("Y must be 3", ct.getY() == 3);
+		org.junit.Assert.assertTrue("Sum must be 3", ct.somme() == 3);
 	}
 	
+	/**
+	 * Check the restoration of a class which constructor is not 0 parameter
+	 */
 	@Test
 	public void test_restoreConstructeurSans0Params() {
 		System.out.println("Restoring object - ConstructeurSans0Params...");
@@ -72,11 +76,11 @@ public class TransacMethodTest {
 		getTransacMethod().restore();
 		
 		// oracle
-		Assert.assertTrue("Must be 'Hello!'", cs0p.getChaine().equals("Hello!"));
+		org.junit.Assert.assertTrue("Must be 'Hello!'", cs0p.getChaine().equals("Hello!"));
 	}
 	
 	/**
-	 * This test confirm the recognition of annotation
+	 * Check the recognition of annotation
 	 * The object must not be restored
 	 */
 	@Test
@@ -94,10 +98,13 @@ public class TransacMethodTest {
 		getTransacMethod().restore();
 		
 		// oracle
-		Assert.assertTrue("Must be 3", ec.getEntier() == 3);
-		Assert.assertTrue("Must be world", ec.getChaine().equals("world"));
+		org.junit.Assert.assertTrue("Must be 3", ec.getEntier() == 3);
+		org.junit.Assert.assertTrue("Must be world", ec.getChaine().equals("world"));
 	}
 	
+	/**
+	 * Check the restoration of a transactionable class which contains a reference to another object
+	 */
 	@Test
 	public void test_restoreReference() {
 		System.out.println("Restoring object - Reference...");
@@ -112,9 +119,12 @@ public class TransacMethodTest {
 		getTransacMethod().restore();
 		
 		// oracle
-		Assert.assertTrue("Must be 5", Integer.parseInt(r.getO().toString()) == 5);
+		org.junit.Assert.assertTrue("Must be 5", Integer.parseInt(r.getO().toString()) == 5);
 	}
 	
+	/**
+	 * Check the restoration of values in a table
+	 */
 	@Test
 	public void test_restoreTableau() {
 		System.out.println("Restoring object - Tableau...");
@@ -130,11 +140,14 @@ public class TransacMethodTest {
 		getTransacMethod().restore();
 		
 		// oracle
-		Assert.assertTrue("Length must be 3", t.getTab().length == 3);
-		Assert.assertTrue("Lenfth not restored", t.getTab().length == 3);
-		Assert.assertTrue("Values not restored", t.getTab()[0] == 1 && t.getTab()[1] == 2 && t.getTab()[2] == 3);
+		org.junit.Assert.assertTrue("Length must be 3", t.getTab().length == 3);
+		org.junit.Assert.assertTrue("Lenfth not restored", t.getTab().length == 3);
+		org.junit.Assert.assertTrue("Values not restored", t.getTab()[0] == 1 && t.getTab()[1] == 2 && t.getTab()[2] == 3);
 	}
 	
+	/**
+	 * Check the restoration of many classes at the same time
+	 */
 	@Test
 	public void test_restoreManyClasses() {
 		System.out.println("Restoring object - Tableau, Reference, EntierChaine...");
@@ -157,11 +170,11 @@ public class TransacMethodTest {
 		getTransacMethod().restore();
 		
 		// oracle
-		Assert.assertTrue("Length must be 3", t.getTab().length == 3);
-		Assert.assertTrue("Lenfth not restored", t.getTab().length == 3);
-		Assert.assertTrue("Values not restored", t.getTab()[0] == 1 && t.getTab()[1] == 2 && t.getTab()[2] == 3);
-		Assert.assertTrue("Must be 5", Integer.parseInt(r.getO().toString()) == 5);
-		Assert.assertTrue("Must be 3", ec.getEntier() == 3);
-		Assert.assertTrue("Must be world", ec.getChaine().equals("world"));
+		org.junit.Assert.assertTrue("Length must be 3", t.getTab().length == 3);
+		org.junit.Assert.assertTrue("Lenfth not restored", t.getTab().length == 3);
+		org.junit.Assert.assertTrue("Values not restored", t.getTab()[0] == 1 && t.getTab()[1] == 2 && t.getTab()[2] == 3);
+		org.junit.Assert.assertTrue("Must be 5", Integer.parseInt(r.getO().toString()) == 5);
+		org.junit.Assert.assertTrue("Must be 3", ec.getEntier() == 3);
+		org.junit.Assert.assertTrue("Must be world", ec.getChaine().equals("world"));
 	}
 }

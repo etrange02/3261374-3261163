@@ -1,8 +1,5 @@
 package fr.upmc.aladyn.transactionables.tests_unitaires;
 
-import junit.framework.Assert;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +14,9 @@ public class TransacPoolTest {
 		TransacPool.s_TransacInstance = null;
 	}
 	
+	/**
+	 * Check the separation between threads
+	 */
 	@Test
 	public void testThread() {
 		System.out.println("Restoring test - Threading 1...");
@@ -73,9 +73,9 @@ public class TransacPoolTest {
 		TransacPool.Get().restore(Thread.currentThread().getId());
 		
 		// oracle
-		Assert.assertTrue("X must be 3", ct.getX() == 3);
-		Assert.assertTrue("Y must be 7", ct.getY() == 7);
-		Assert.assertTrue("Sum must be 10", ct.somme() == 10);
+		org.junit.Assert.assertTrue("X must be 3", ct.getX() == 3);
+		org.junit.Assert.assertTrue("Y must be 7", ct.getY() == 7);
+		org.junit.Assert.assertTrue("Sum must be 10", ct.somme() == 10);
 	}
 	
 	public static  void testWithEnvironment_2levels_WellBeenSimulazed() {
@@ -97,8 +97,8 @@ public class TransacPoolTest {
 		TransacPool.Get().endMethod(Thread.currentThread().getId()); // first ends
 		
 		// oracle
-		Assert.assertTrue("X must be 4", ct.getX() == 4);
-		Assert.assertTrue("Y must be 8", ct.getY() == 8);
-		Assert.assertTrue("Sum must be 12", ct.somme() == 12);
+		org.junit.Assert.assertTrue("X must be 4", ct.getX() == 4);
+		org.junit.Assert.assertTrue("Y must be 8", ct.getY() == 8);
+		org.junit.Assert.assertTrue("Sum must be 12", ct.somme() == 12);
 	}
 }
