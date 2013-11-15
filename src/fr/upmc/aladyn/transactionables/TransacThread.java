@@ -5,7 +5,7 @@ import java.util.Stack;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Gere les conetextes des methodes transactionables en les stockant successivement dans un pile
+ * Gere les contextes des methodes transactionables en les stockant successivement dans un pile
  * @author David Lecoconnier
  * @author Allan Mottier
  * 2013-10-05

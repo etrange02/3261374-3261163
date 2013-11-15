@@ -8,9 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.EntierChaine;
-import classes.Reference;
-import classes.Tableau;
+import fr.upmc.aladyn.classesTest.EntierChaine;
+import fr.upmc.aladyn.classesTest.Reference;
+import fr.upmc.aladyn.classesTest.Tableau;
 import fr.upmc.aladyn.transactionables.TransacObjectCopy;
 
 

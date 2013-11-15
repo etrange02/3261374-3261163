@@ -1,4 +1,4 @@
-package test.transactionables;
+package fr.upmc.aladyn.classesTest;
 
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 
@@ -7,7 +7,7 @@ public class TrTest2 {
 	private int z;
 	
 	public TrTest2(){
-		z=-1;
+		z=0;
 	}
 	
 	public int getZ(){

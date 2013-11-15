@@ -6,11 +6,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.ClasseTransactionnable;
-import classes.EntierChaine;
-import classes.Reference;
-import classes.Tableau;
-import classes.ConstructeurSans0Params;
+import fr.upmc.aladyn.classesTest.ClasseTransactionnable;
+import fr.upmc.aladyn.classesTest.ConstructeurSans0Params;
+import fr.upmc.aladyn.classesTest.EntierChaine;
+import fr.upmc.aladyn.classesTest.Reference;
+import fr.upmc.aladyn.classesTest.Tableau;
 import fr.upmc.aladyn.transactionables.TransacMethod;
 
 public class TransacMethodTest {

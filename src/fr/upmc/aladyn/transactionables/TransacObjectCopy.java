@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 24/09/2013
  * Represente la copie d'un objet : copie des valeurs des attributs de ce dernier
  * @author David Lecoconnier
  * @author Allan Mottier
+ * 2013-10-29
  */
 
 public class TransacObjectCopy {

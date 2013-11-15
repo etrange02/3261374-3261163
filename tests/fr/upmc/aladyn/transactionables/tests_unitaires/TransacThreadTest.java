@@ -1,14 +1,15 @@
 package fr.upmc.aladyn.transactionables.tests_unitaires;
 
 import java.util.EmptyStackException;
+
 import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.ClassWithTransactionableMethods;
-import classes.ClasseTransactionnable;
+import fr.upmc.aladyn.classesTest.ClassWithTransactionableMethods;
+import fr.upmc.aladyn.classesTest.ClasseTransactionnable;
 import fr.upmc.aladyn.transactionables.TransacThread;
 
 public class TransacThreadTest {

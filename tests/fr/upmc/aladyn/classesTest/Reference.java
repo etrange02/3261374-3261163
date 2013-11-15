@@ -1,4 +1,4 @@
-package classes;
+package fr.upmc.aladyn.classesTest;
 
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 

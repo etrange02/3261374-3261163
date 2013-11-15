@@ -3,7 +3,6 @@ package fr.upmc.aladyn.transactionables;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Vector;
 
 /**
  * Gere la copie et la restauration des objets transactionnables utilises dans la methode transactionnable

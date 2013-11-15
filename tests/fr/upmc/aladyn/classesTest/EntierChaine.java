@@ -1,4 +1,4 @@
-package classes;
+package fr.upmc.aladyn.classesTest;
 
 public class EntierChaine {
 	private int entier;
