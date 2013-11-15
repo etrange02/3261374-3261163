@@ -10,7 +10,7 @@ import classes.ClasseTransactionnable;
 import classes.EntierChaine;
 import classes.Reference;
 import classes.Tableau;
-import classes.useless.ConstructeurSans0Params;
+import classes.ConstructeurSans0Params;
 import fr.upmc.aladyn.transactionables.TransacMethod;
 
 public class TransacMethodTest {

@@ -9,6 +9,8 @@ import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.NotFoundException;
 import javassist.Translator;
+import javassist.expr.ExprEditor;
+import javassist.expr.Handler;
 
 /**
  * Implémentation spécifique de la classe Translator
@@ -24,45 +26,47 @@ public class MonTranslator implements Translator {
 	@Override
 	public void onLoad(ClassPool pool, String classname) throws NotFoundException,CannotCompileException {
 		CtClass cc = pool.get(classname);
-		
+
 		boolean classTr = false;
 		if(cc.hasAnnotation(fr.upmc.aladyn.transactionables.annotations.Transactionable.class))
 			classTr = true;
-		
+
 		CtMethod[] tabM = cc.getMethods();
 		for(CtMethod m : tabM){
-			if(classTr && m.getName().startsWith("set")){
-				System.out.println(classname+" "+m.getName()+" - 1");
-				javassist1.Main.changeSet(cc,m);
-				System.out.println(classname+" "+m.getName()+" - 1,2");
+			if( classTr && m.getName().startsWith("set")){
+				m.insertBefore("fr.upmc.aladyn.transactionables.TransacPool.Get().saveObject(Thread.currentThread().getId(),this);");
 			}
 			else {
-				System.out.println(classname+" "+m.getName()+" - 2");
-				Object[] tabA = null;
-				try {
-					tabA = m.getAnnotations();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+				if(m.hasAnnotation(fr.upmc.aladyn.transactionables.annotations.Transactionable.class)){
+					changeMethodeTr(cc, m);
 				}
-				for(int i=0;i<tabA.length;i++){
-					if(tabA[i] instanceof Transactionable){
-						System.out.println(classname+" "+m.getName()+" - 2,2");
-						javassist1.Main.changeMethodeTr(cc, m);
-						break;
-					}
-				}
-				System.out.println(classname+" "+m.getName()+" - 2,3");
 			}
 		}
 
-		try {
-			cc.writeFile(Main.getDirectoryName());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	public void start(ClassPool pool) throws NotFoundException,CannotCompileException {}
+
+	/**
+	 * Modifie une méthode transactionnable pour y inserer le system de sauvegarde/restauration
+	 * 
+	 * @param cc CtClass dont on veut modifier la methode
+	 * @param cm La methode a modifier
+	 * @throws CannotCompileException 
+	 * @throws NotFoundException 
+	 */
+	public static void changeMethodeTr(CtClass cc,CtMethod cm) throws CannotCompileException, NotFoundException{
+		// on cree un contexte
+		cm.insertBefore("{fr.upmc.aladyn.transactionables.TransacPool.Get().transactionableMethod(Thread.currentThread().getId());}");
+
+		// insert la restauration des objet transactionnable au debut de tout les catch de l'utilisateur
+		cm.instrument(new ExprEditor() {
+			public void edit(Handler ha) throws CannotCompileException{
+				ha.insertBefore("fr.upmc.aladyn.transactionables.TransacPool.Get().restore(Thread.currentThread().getId());");
+			}
+		});
+		cm.addCatch("fr.upmc.aladyn.transactionables.TransacPool.Get().restore(Thread.currentThread().getId()); fr.upmc.aladyn.transactionables.TransacPool.Get().endMethod(Thread.currentThread().getId()); throw $e;",ClassPool.getDefault().get("java.lang.Exception"));
+	}
 
 }

@@ -1,6 +1,7 @@
 package fr.upmc.aladyn.transactionables;
 
 import java.lang.annotation.Annotation;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -12,15 +13,15 @@ import java.util.Vector;
  */
 
 public class TransacMethod {
-	private Vector<TransacObjectCopy> copies;
-	
+	private HashMap<Integer,TransacObjectCopy> copies;
+
 	/**
 	 * Constructeur
 	 */
 	public TransacMethod() {
-		this.copies = new Vector<TransacObjectCopy>();
+		this.copies = new HashMap<Integer,TransacObjectCopy>();
 	}
-	
+
 	/**
 	 * Copie une instance d'objet et la conserve en memoire pour une future restauration si elle n'est pas déjà présente
 	 * On empeche ainsi les modifications successives d'un meme objet dans une methode transationnable
@@ -28,27 +29,27 @@ public class TransacMethod {
 	 * @param o l'objet a copier
 	 */
 	public void saveNewObject(Object o) {
-		if (this.copies.contains(o))
+		if (this.copies.containsKey(o.hashCode())){
 			return;
-		
+		}
+
 		Class<?> c = o.getClass();
-		
+
 		if (isTransactionable(c.getAnnotations())) {
-			this.copies.add(new TransacObjectCopy(o));
+			this.copies.put(o.hashCode(),new TransacObjectCopy(o));
 		}
 	}
-	
+
 	/**
 	 * Remet en l'etat tous les objets transactionnables modifies pendant l'appel de la methode
 	 */
 	public void restore() {
-		Iterator<TransacObjectCopy> iter = this.copies.iterator();
-		
+		Iterator<TransacObjectCopy> iter = this.copies.values().iterator();
 		while (iter.hasNext()) {
 			((TransacObjectCopy) iter.next()).restoreInstance();
 		}
 	}
-	
+
 	/**
 	 * Indique la presence de "Transationable" dans le tableau
 	 * @param a un tableau d'annotations

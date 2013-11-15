@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class TransacThread {
 	private Stack<TransacMethod> pile;
 	private ReentrantLock mutexRestoring;
-	
+
 	/**
 	 * Constructeur
 	 */
@@ -22,19 +22,19 @@ public class TransacThread {
 		this.pile = new Stack<TransacMethod>();
 		this.mutexRestoring = new ReentrantLock();
 	}
-	
+
 	/**
 	 * Lance la copie d'un objet dans le contexte courant de la methode transactionable
 	 * @param o
 	 */
 	public void copyTransacObjectInSubTransacMethod(Object o) {
-		if (isEmpty() || isRestoring())
+		if (isEmpty() || isRestoring()){
 			return;
-		
+		}
 		TransacMethod tm = this.pile.peek();
 		tm.saveNewObject(o);
 	}
-	
+
 	/**
 	 * Cree un contexte pour l'appel d'un nouvelle methode transactionable
 	 */
@@ -42,19 +42,20 @@ public class TransacThread {
 		TransacMethod tm = new TransacMethod();
 		this.pile.push(tm);
 	}
-	
+
 	/**
 	 * Restaure les objets transactionables utilises dans la methode, i.e. dans le sommet de pile
 	 */
 	public void restoreHeap() {
-		if (isEmpty())
+		if (isEmpty()){
 			throw new EmptyStackException();
+		}
 		this.mutexRestoring.lock();
 		TransacMethod tm = this.pile.peek();
 		tm.restore();
 		this.mutexRestoring.unlock();
 	}
-	
+
 	/**
 	 * Supprime le contexte de la methode transactionable courante.
 	 * Le contexte disponible a la suite de cette suppression est le contexte de la methode transactionable a l'iniative de la methode courante.
@@ -65,7 +66,7 @@ public class TransacThread {
 			throw new EmptyStackException();
 		this.pile.pop();
 	}
-	
+
 	/**
 	 * Indique si des contextes de methodes transactionables ont ete crees
 	 * @return true s'il n'y a pas de contexte
@@ -73,7 +74,7 @@ public class TransacThread {
 	public boolean isEmpty() {
 		return this.pile.isEmpty();
 	}
-	
+
 	/**
 	 * Indique l'etat de la restauration
 	 * @return true lorsqu'une restauration est en cours

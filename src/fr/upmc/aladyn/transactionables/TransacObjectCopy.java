@@ -46,11 +46,12 @@ public class TransacObjectCopy {
 					if (field.getClass().isArray()) { // type tableau
 						copyArray(field);
 					} else { // type normal
+						if(field.getName()=="_metaobject" || field.getName()=="_classobject")
+							continue;
 						m = c.getMethod("get" + capitalize(field.getName()), null);
 						save.put(field.getName(), m.invoke(this.reference));
 					}
 				} catch (NoSuchMethodException e) {
-					System.out.println(i);
 					e.printStackTrace();
 				} catch (SecurityException e) {
 					e.printStackTrace();
@@ -72,6 +73,8 @@ public class TransacObjectCopy {
 	 */
 	private void copyArray(Field f) {		
 		try {
+			if(f.getName()=="_metaobject" || f.getName()=="_classobject")
+				return;
 			Method m = this.reference.getClass().getMethod("get" + capitalize(f.getName()), null);
 			Object[] res = (Object[]) m.invoke(this.reference);
 			res.getClass().cast(f.getClass());
@@ -110,6 +113,8 @@ public class TransacObjectCopy {
 			for (int i = 0; i < f.length; i++) {
 				try {
 					field = f[i];
+					if(field.getName()=="_metaobject" || field.getName()=="_classobject")
+						continue;
 					m = c.getMethod("set" + capitalize(field.getName()), field.getType());
 					m.invoke(this.reference, save.get(field.getName()));
 				} catch (NoSuchMethodException e) {

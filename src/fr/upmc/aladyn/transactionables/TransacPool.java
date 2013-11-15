@@ -13,14 +13,14 @@ import java.util.Map;
 public class TransacPool {
 	public static TransacPool s_TransacInstance = null;// public to make easier tests
 	private Map<Long, TransacThread> store;
-	
+
 	/**
 	 * Constructeur
 	 */
 	private TransacPool() {
 		this.store = new HashMap<Long, TransacThread>();
 	}
-	
+
 	/**
 	 * Singleton
 	 * @return l'instance de la classe
@@ -30,7 +30,7 @@ public class TransacPool {
 			s_TransacInstance = new TransacPool();
 		return s_TransacInstance;
 	}
-	
+
 	/**
 	 * Initie la copie d'un objet. La reel copie depend de plusieurs parametres : objet transactionable, contexte de methode transactionable
 	 * @param idThread l'identifiant du thread appelant
@@ -42,7 +42,7 @@ public class TransacPool {
 			tt.copyTransacObjectInSubTransacMethod(o);
 		}
 	}
-	
+
 	/**
 	 * Cree un contexte pour une methode transactionable
 	 * @param idThread l'identifiant du thread appelant
@@ -57,7 +57,7 @@ public class TransacPool {
 		}
 		tt.createTransacMethodContext();
 	}
-	
+
 	/**
 	 * On peut se passer de cette méthode, elle est implemente de base dans TransacThread
 	 * Indique si l'on est dans l'appel d'une methode transactionable et qu'aucune restauration n'est en cours
@@ -70,17 +70,19 @@ public class TransacPool {
 		}
 		return false;
 	}*/
-	
+
 	/**
 	 * Gere la restauration des objets transactionables de la methode courante dans le thread idThread
 	 * @param idThread l'identifiant du thread appelant
 	 */
 	public synchronized void restore(long idThread) {
 		TransacThread tm = this.store.get(idThread);
-		if (tm != null)
+		if (tm != null){
 			tm.restoreHeap();
+		}
+
 	}
-	
+
 	/**
 	 * Gere la destruction des objets transactionables utilises dans la methode courante dans le thread idThread
 	 * @param idThread l'identifiant du thread appelant
