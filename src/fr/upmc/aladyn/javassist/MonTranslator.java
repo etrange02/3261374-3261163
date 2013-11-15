@@ -45,7 +45,6 @@ public class MonTranslator implements Translator {
 	/**
 	 * Modifie une méthode Transactionable pour y inserer le système de sauvegarde/restauration
 	 * 
-	 * @param cc CtClass dont on veut modifier la methode
 	 * @param cm La methode a modifier
 	 * @throws CannotCompileException 
 	 * @throws NotFoundException 

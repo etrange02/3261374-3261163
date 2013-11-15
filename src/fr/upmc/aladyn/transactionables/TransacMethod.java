@@ -34,7 +34,7 @@ public class TransacMethod {
 
 		Class<?> c = o.getClass();
 
-		if (isTransactionable(c.getAnnotations())) {
+		if (isTransactionable(c)) {
 			this.copies.put(o.hashCode(),new TransacObjectCopy(o));
 		}
 	}
@@ -54,11 +54,16 @@ public class TransacMethod {
 	 * @param a un tableau d'annotations
 	 * @return vrai si present
 	 */
-	private boolean isTransactionable(Annotation[] a) {
-		for (int i = 0; i<a.length; ++i) {
-			if (a[i].toString().equals("@fr.upmc.aladyn.transactionables.annotations.Transactionable()")){
-				return true;
+	private boolean isTransactionable(Class<?> c) {
+		Annotation[] a = null;
+		while (c != null) {
+			a = c.getAnnotations();
+			for (int i = 0; i<a.length; ++i) {
+				if (a[i].toString().equals("@fr.upmc.aladyn.transactionables.annotations.Transactionable()")){
+					return true;
+				}
 			}
+			c = c.getSuperclass();
 		}
 		return false;
 	}

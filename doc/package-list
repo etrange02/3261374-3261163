@@ -1,9 +1,7 @@
-classes
-classes.useless
+fr.upmc.aladyn.classesTest
+fr.upmc.aladyn.javassist
+fr.upmc.aladyn.metaObj
+fr.upmc.aladyn.testGeneral
 fr.upmc.aladyn.transactionables
 fr.upmc.aladyn.transactionables.annotations
 fr.upmc.aladyn.transactionables.tests_unitaires
-javassist
-test.transactionables
-test.transactionablesClasses
-test.transationablesMethods

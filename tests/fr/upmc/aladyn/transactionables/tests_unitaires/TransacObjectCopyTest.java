@@ -2,8 +2,6 @@ package fr.upmc.aladyn.transactionables.tests_unitaires;
 
 import java.util.Vector;
 
-import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +12,7 @@ import fr.upmc.aladyn.classesTest.Tableau;
 import fr.upmc.aladyn.transactionables.TransacObjectCopy;
 
 
+@SuppressWarnings("unused")
 public class TransacObjectCopyTest {
 	
 	protected TransacObjectCopy toc = null;
@@ -31,6 +30,9 @@ public class TransacObjectCopyTest {
 		setTransacObjectCopy(null);
 	}
 	
+	/**
+	 * Check the restoration of primitives types
+	 */
 	@Test
 	public void test_restoreInstanceEntierChaine() {
 		System.out.println("Restoring test - integer and string...");
@@ -46,11 +48,14 @@ public class TransacObjectCopyTest {
 		getTransacObjectCopy().restoreInstance();
 
 		// oracle
-		Assert.assertTrue("Reference changed", getTransacObjectCopy().getReference() == ec);
-		Assert.assertTrue("Integer not restored", ec.getEntier() == 3);
-		Assert.assertTrue("String not restored", ec.getChaine() == "test");
+		org.junit.Assert.assertTrue("Reference changed", getTransacObjectCopy().getReference() == ec);
+		org.junit.Assert.assertTrue("Integer not restored", ec.getEntier() == 3);
+		org.junit.Assert.assertTrue("String not restored", ec.getChaine() == "test");
 	}
 
+	/**
+	 * Check the restoration of references
+	 */
 	@Test
 	public void test_restoreInstanceReference() {
 		System.out.println("Restoring test - references...");
@@ -66,11 +71,14 @@ public class TransacObjectCopyTest {
 		getTransacObjectCopy().restoreInstance();
 
 		// oracle
-		Assert.assertTrue("Reference changed", getTransacObjectCopy().getReference() == ref);
-		Assert.assertTrue("Integer not restored", ref.getO() == b);
-		Assert.assertTrue("String not restored", ref.getO().toString().equals(Boolean.toString(true)));
+		org.junit.Assert.assertTrue("Reference changed", getTransacObjectCopy().getReference() == ref);
+		org.junit.Assert.assertTrue("Integer not restored", ref.getO() == b);
+		org.junit.Assert.assertTrue("String not restored", ref.getO().toString().equals(Boolean.toString(true)));
 	}
 
+	/**
+	 * Check the restoration of one table
+	 */
 	@Test
 	public void test_restoreInstanceTableau() {
 		System.out.println("Restoring test - array...");
@@ -87,8 +95,8 @@ public class TransacObjectCopyTest {
 		getTransacObjectCopy().restoreInstance();
 		 
 		// oracle
-		Assert.assertTrue("Reference changed", getTransacObjectCopy().getReference() == t);
-		Assert.assertTrue("Lenfth not restored", t.getTab().length == 3);
-		Assert.assertTrue("Values not restored", t.getTab()[0] == 1 && t.getTab()[1] == 2 && t.getTab()[2] == 3);
+		org.junit.Assert.assertTrue("Reference changed", getTransacObjectCopy().getReference() == t);
+		org.junit.Assert.assertTrue("Lenfth not restored", t.getTab().length == 3);
+		org.junit.Assert.assertTrue("Values not restored", t.getTab()[0] == 1 && t.getTab()[1] == 2 && t.getTab()[2] == 3);
 	}
 }
